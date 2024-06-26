@@ -30,7 +30,9 @@ const LinkCard = ({ url = [], fetchUrls }) => {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`https://trim.it/${url?.short_url}`);
+    navigator.clipboard.writeText(
+      `https://trimmit.vercel.app/${url?.short_url}`
+    );
     toast.success("URL copied to clipboard");
   };
 
@@ -60,7 +62,7 @@ const LinkCard = ({ url = [], fetchUrls }) => {
           {url?.title}
         </span>
         <span className="text-2xl text-blue-400 font-bold hover:underline cursor-pointer">
-          https://trim.it/
+          https://trimmit.vercel.app/
           {url?.custom_url ? url?.custom_url : url.short_url}
         </span>
         <span className="flex items-center gap-1 hover:underline cursor-pointer">
