@@ -65,11 +65,11 @@ const SignupForm = () => {
         error.inner.forEach((err) => {
           newErrors[err.path] = err.message;
         });
-        toast.error("Some fields are invalid. Please check.");
+        toast.error("Some fields are invalid, Please check!");
         setErrors(newErrors);
       } else {
         setErrors({ api: error.message });
-        toast.error("Some fields are invalid. Please check.");
+        toast.error("Some fields are invalid, Please check!");
       }
     }
   };
