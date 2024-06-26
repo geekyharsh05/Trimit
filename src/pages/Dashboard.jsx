@@ -11,9 +11,12 @@ import { UrlState } from "@/contexts/UrlContext";
 import { getClicksForUrls } from "@/db/apiClicks";
 import LinkCard from "@/components/LinkCard";
 import CreateLink from "@/components/CreateLink";
+import useDebounce from "@/hooks/useDebounce";
 
 const Dashboard = () => {
-  const [searchQuery, setsearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery, 500); // 500ms debounce delay
+  console.log(debouncedSearchQuery)
 
   const { user } = UrlState();
 
@@ -38,7 +41,7 @@ const Dashboard = () => {
   }, []);
 
   const filteredUrls = urls?.filter((url) =>
-    url.title.toLowerCase().includes(searchQuery.toLowerCase())
+    url.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
   );
 
   useEffect(() => {
@@ -47,8 +50,9 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col gap-8">
-      {loading ||
-        (loadingClicks && <BarLoader width={"100%"} color="#36d7b7" />)}
+      {loading || loadingClicks ? (
+        <BarLoader width={"100%"} color="#36d7b7" />
+      ) : null}
       <div className="grid grid-cols-2 gap-4">
         <Card>
           <CardHeader>
@@ -76,9 +80,9 @@ const Dashboard = () => {
         <Input
           type="text"
           placeholder="Filter Links..."
-          value={""}
+          value={searchQuery}
           onChange={(e) => {
-            setsearchQuery(e.target.value);
+            setSearchQuery(e.target.value);
           }}
         />
         <Filter className="absolute top-2 right-2 p-1" />
