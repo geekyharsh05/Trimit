@@ -68,7 +68,7 @@ const LoginForm = () => {
       });
 
       setErrors(newErrors);
-      toast.error("Some fields are invalid. Please check.");
+      toast.error("Some fields are invalid, Please check!");
     }
   };
 
