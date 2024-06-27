@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Dialog,
   DialogContent,
@@ -65,7 +66,6 @@ function CreateLink() {
       toast.success("Link created successfully!");
       navigate(`/link/${data[0].id}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, data]);
 
   const createNewLink = async () => {

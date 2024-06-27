@@ -1,11 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import AppLayout from "./layouts/AppLayout";
-import LandingPage from "./pages/LandingPage";
-import Dashboard from "./pages/Dashboard";
-import AuthPage from "./pages/AuthPage";
-import LinkPage from "./pages/LinkPage";
-import RedirectLinkPage from "./pages/RedirectLinkPage";
-import RequireAuth from "./components/RequireAuth";
+const LandingPage = lazy(() => import("./pages/LandingPage"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const LinkPage = lazy(() => import("./pages/LinkPage"));
+const RedirectLinkPage = lazy(() => import("./pages/RedirectLinkPage"));
+const RequireAuth = lazy(() => import("./components/RequireAuth"));
+import { Skeleton } from "./components/ui/skeleton";
 
 const router = createBrowserRouter([
   {
@@ -44,7 +46,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<Skeleton />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 }
 
 export default App;
