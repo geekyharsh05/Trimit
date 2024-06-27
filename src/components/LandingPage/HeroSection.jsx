@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 
 const HeroSection = ({ handleShorten, longUrl, setLongUrl }) => {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 ">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0 }}
@@ -13,7 +13,7 @@ const HeroSection = ({ handleShorten, longUrl, setLongUrl }) => {
           transition={{ duration: 3, delay: 0.2 }}
           className="flex flex-col items-center text-center space-y-4"
         >
-          <div className="space-y-2">
+          <div className="space-y-2 ">
             <h1 className="my-6 text-4xl sm:text-5xl md:text-7xl font-bold relative z-10 bg-clip-text text-transparent bg-gradient-to-b dark:from-gray-200 dark:to-indigo-500 from-blue-600 to-purple-800 py-2 cursor-pointer">
               Shorten Your Links, Expand Your Reach
             </h1>

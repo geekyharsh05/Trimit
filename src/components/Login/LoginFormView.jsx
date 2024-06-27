@@ -69,7 +69,7 @@ const LoginFormView = ({
       <CardFooter>
         <Button
           onClick={handleLogin}
-          className="w-full bg-blue-500 text-white py-2 rounded-md"
+          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-700"
         >
           {loading ? <SyncLoader size={10} color="#36d7b7" /> : "Login"}
         </Button>
