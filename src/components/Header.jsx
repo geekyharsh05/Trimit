@@ -33,11 +33,28 @@ const Header = () => {
     }
   };
 
+  const getInitials = (name) => {
+    if (!name) return "A";
+    const initials = name
+      .split(" ")
+      .map((word) => word[0])
+      .join("");
+    return initials.toUpperCase();
+  };
+
+  const initials = getInitials(
+    user?.user_metadata?.name || user?.user_metadata?.full_name
+  );
+
   return (
     <>
       <nav className="py-4 flex justify-between items-center">
         <Link to="/">
-          <img src="/logo.png" className="h-16" alt="Trimit Logo" />
+          <img
+            src="../src/assets/logo.svg"
+            className="h-16"
+            alt="Trimit Logo"
+          />
         </Link>
         <div className="flex gap-4">
           {!user ? (
@@ -46,8 +63,13 @@ const Header = () => {
             <DropdownMenu>
               <DropdownMenuTrigger className="w-10 rounded-full overflow-hidden">
                 <Avatar>
-                  <AvatarImage src={user?.user_metadata?.profile_pic} />
-                  <AvatarFallback>PA</AvatarFallback>
+                  <AvatarImage
+                    src={
+                      user?.user_metadata?.profile_pic ||
+                      user?.user_metadata?.avatar_url
+                    }
+                  />
+                  <AvatarFallback>{initials}</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
