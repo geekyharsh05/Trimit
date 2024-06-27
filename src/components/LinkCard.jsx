@@ -6,6 +6,7 @@ import useFetch from "@/hooks/useFetch";
 import { deleteUrl } from "@/db/apiUrls";
 import { BeatLoader } from "react-spinners";
 import { toast } from "sonner";
+import { PUBLIC_BASE_URL } from "@/utils/envConfigs";
 
 const LinkCard = ({ url = [], fetchUrls }) => {
   const downloadImage = () => {
@@ -30,7 +31,7 @@ const LinkCard = ({ url = [], fetchUrls }) => {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`http://localhost:5173/${url?.short_url}`);
+    navigator.clipboard.writeText(`${PUBLIC_BASE_URL}/${url?.short_url}`);
     toast.success("URL copied to clipboard");
   };
 
@@ -60,7 +61,7 @@ const LinkCard = ({ url = [], fetchUrls }) => {
           {url?.title}
         </span>
         <span className="text-2xl text-blue-400 font-bold hover:underline cursor-pointer">
-          http://localhost:5173/
+          {PUBLIC_BASE_URL}/
           {url?.custom_url ? url?.custom_url : url.short_url}
         </span>
         <span className="flex items-center gap-1 hover:underline cursor-pointer">

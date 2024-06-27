@@ -7,6 +7,7 @@ import { UrlState } from "@/contexts/UrlContext";
 import { getClicksForUrl } from "@/db/apiClicks";
 import { deleteUrl, getUrl } from "@/db/apiUrls";
 import useFetch from "@/hooks/useFetch";
+import { PUBLIC_BASE_URL } from "@/utils/envConfigs";
 import { Copy, Download, LinkIcon, Trash } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -81,11 +82,12 @@ const LinkPage = () => {
             {url?.title}
           </span>
           <a
-            href={`http://localhost:5173/${link}`}
+            href={`${PUBLIC_BASE_URL}/${link}`}
             target="_blank"
             className="text-3xl sm:text-4xl text-blue-400 font-bold hover:underline cursor-pointer"
           >
-            http://localhost:5173/{link}
+            {PUBLIC_BASE_URL}/
+            {link}
           </a>
           <a
             href={url?.original_url}
@@ -102,7 +104,7 @@ const LinkPage = () => {
             <Button
               variant="ghost"
               onClick={() => {
-                navigator.clipboard.writeText(`http://localhost:5173/${link}`);
+                navigator.clipboard.writeText(`${PUBLIC_BASE_URL}/${link}`);
                 toast.success("URL copied to clipboard");
               }}
             >
