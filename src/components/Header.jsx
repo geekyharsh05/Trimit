@@ -51,7 +51,7 @@ const Header = () => {
       <nav className="py-4 flex justify-between items-center">
         <Link to="/">
           <img
-            src="../src/assets/logo.svg"
+            src="../public/assets/logo.svg"
             className="h-16"
             alt="Trimit Logo"
           />
