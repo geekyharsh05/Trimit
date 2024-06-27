@@ -5,6 +5,8 @@ import Signup from "@/components/Signup";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UrlState } from "@/contexts/UrlContext";
+import SignUpUsingGithub from "@/components/OAuth/SignUpUsingGithub";
+import SignUpUsingGoogle from "@/components/OAuth/SignUpUsingGoogle";
 
 const AuthPage = () => {
   let [searchParams] = useSearchParams();
@@ -17,7 +19,6 @@ const AuthPage = () => {
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, loading, navigate]);
-
   return (
     <div className="mt-20 flex flex-col items-center gap-10">
       <h1 className="text-5xl font-extrabold">
@@ -36,7 +37,16 @@ const AuthPage = () => {
         <TabsContent value="signup">
           <Signup />
         </TabsContent>
+        <div className="my-3 flex items-center px-3">
+          <hr className="w-full border-slate-600" />
+          <span className="mx-3 text-slate-500">or</span>
+          <hr className="w-full border-slate-600" />
+        </div>
       </Tabs>
+      <div className="flex items-center gap-2">
+        <SignUpUsingGithub />
+        <SignUpUsingGoogle />
+      </div>
     </div>
   );
 };

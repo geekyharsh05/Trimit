@@ -11,6 +11,32 @@ export async function login({ email, password }) {
   return data;
 }
 
+export async function signUpWithGithub() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function signUpWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
+    },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 export async function signup({ name, email, password, profile_pic }) {
   const fileName = `dp-${name.split(" ").join("-")}-${Math.random()}`;
 
@@ -39,8 +65,6 @@ export async function signup({ name, email, password, profile_pic }) {
 export async function getCurrentUser() {
   const { data: session, error } = await supabase.auth.getSession();
   if (!session.session) return null;
-
-  // const {data, error} = await supabase.auth.getUser();
 
   if (error) throw new Error(error.message);
   return session.session?.user;
