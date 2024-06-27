@@ -11,6 +11,7 @@ import { Copy, Download, LinkIcon, Trash } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BarLoader, BeatLoader } from "react-spinners";
+import { toast } from "sonner";
 
 const LinkPage = () => {
   const downloadImage = () => {
@@ -25,12 +26,15 @@ const LinkPage = () => {
     // Append the anchor to the body
     document.body.appendChild(anchor);
 
-    // Trigger the download by simulating a click event
-    anchor.click();
-
     // Remove the anchor from the document
     document.body.removeChild(anchor);
+
+    // Open the downloaded image in a new tab
+    window.open(imageUrl, "_blank");
+
+    toast.success("Image downloaded successfully");
   };
+
   const navigate = useNavigate();
   const { user } = UrlState();
   const { id } = useParams();
@@ -77,11 +81,11 @@ const LinkPage = () => {
             {url?.title}
           </span>
           <a
-            href={`https://trimmit.vercel.app/${link}`}
+            href={`http://localhost:5173/${link}`}
             target="_blank"
             className="text-3xl sm:text-4xl text-blue-400 font-bold hover:underline cursor-pointer"
           >
-            https://trimmit.vercel.app/{link}
+            http://localhost:5173/{link}
           </a>
           <a
             href={url?.original_url}
@@ -97,9 +101,10 @@ const LinkPage = () => {
           <div className="flex gap-2">
             <Button
               variant="ghost"
-              onClick={() =>
-                navigator.clipboard.writeText(`https://trimmit.vercel.app/${link}`)
-              }
+              onClick={() => {
+                navigator.clipboard.writeText(`http://localhost:5173/${link}`);
+                toast.success("URL copied to clipboard");
+              }}
             >
               <Copy />
             </Button>
@@ -110,6 +115,7 @@ const LinkPage = () => {
               variant="ghost"
               onClick={() =>
                 fnDelete().then(() => {
+                  toast.success("URL deleted successfully");
                   navigate("/dashboard");
                 })
               }
