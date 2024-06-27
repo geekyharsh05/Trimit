@@ -98,7 +98,7 @@ const SignupFormView = ({
           />
           <Button
             onClick={handleFileInputClick}
-            className="w-full bg-blue-700 text-white py-2 rounded-md"
+            className="w-full bg-blue-700 text-white py-2 rounded-md hover:bg-blue-800"
           >
             Choose Profile Picture
           </Button>
@@ -118,7 +118,7 @@ const SignupFormView = ({
       <CardFooter>
         <Button
           onClick={handleSignup}
-          className="w-full bg-blue-500 text-white py-2 rounded-md"
+          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-700"
         >
           {loading ? (
             <BeatLoader size={10} color="#36d7b7" />

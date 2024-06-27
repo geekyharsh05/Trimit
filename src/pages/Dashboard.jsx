@@ -16,7 +16,7 @@ import useDebounce from "@/hooks/useDebounce";
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebounce(searchQuery, 500); // 500ms debounce delay
-  console.log(debouncedSearchQuery)
+  console.log(debouncedSearchQuery);
 
   const { user } = UrlState();
 
