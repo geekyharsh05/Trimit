@@ -47,7 +47,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <Suspense fallback={<Skeleton />}>
+    <Suspense fallback={<Skeleton className="w-full" />}>
       <RouterProvider router={router} />
     </Suspense>
   );

@@ -17,6 +17,10 @@ module.exports = {
       },
     },
     extend: {
+      boxShadow: {
+        "indigo-xl":
+          "0 10px 15px rgba(99, 102, 241, 0.5), 0 4px 6px rgba(99, 102, 241, 0.5)",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

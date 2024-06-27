@@ -48,13 +48,9 @@ const Header = () => {
 
   return (
     <>
-      <nav className="py-4 flex justify-between items-center">
+      <nav className="py-4 flex justify-between items-center text-white ">
         <Link to="/">
-          <img
-            src="../public/assets/logo.svg"
-            className="h-16"
-            alt="Trimit Logo"
-          />
+          <img src="../assets/logo.svg" className="h-16" alt="Trimit Logo" />
         </Link>
         <div className="flex gap-4">
           {!user ? (

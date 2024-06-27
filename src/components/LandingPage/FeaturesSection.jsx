@@ -5,7 +5,7 @@ import FeatureCard from "../FeatureCard";
 
 const FeaturesSection = () => {
   return (
-    <section className="w-full py-8 md:py-16 lg:py-24 bg-muted rounded-xl border-2 border-indigo-400 shadow-2xl">
+    <section className="w-full py-8 md:py-16 lg:py-24 bg-muted rounded-xl border-2 border-indigo-600 shadow-indigo-xl">
       <div className="container px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0 }}

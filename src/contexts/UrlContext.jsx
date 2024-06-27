@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect } from "react";
 import { getCurrentUser } from "@/db/apiAuth";
@@ -12,7 +13,6 @@ const UrlProvider = ({ children }) => {
 
   useEffect(() => {
     fetchUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

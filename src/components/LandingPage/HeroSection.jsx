@@ -14,7 +14,7 @@ const HeroSection = ({ handleShorten, longUrl, setLongUrl }) => {
           className="flex flex-col items-center text-center space-y-4"
         >
           <div className="space-y-2 ">
-            <h1 className="my-6 text-4xl sm:text-5xl md:text-7xl font-bold relative z-10 bg-clip-text text-transparent bg-gradient-to-b dark:from-gray-200 dark:to-indigo-500 from-blue-600 to-purple-800 py-2 cursor-pointer">
+            <h1 className="my-6 text-4xl sm:text-5xl md:text-7xl font-bold relative z-10 bg-clip-text text-transparent bg-gradient-to-b dark:from-gray-200 dark:to-indigo-500 from-blue-600 to-purple-800 py-2 cursor-pointer ">
               Shorten Your Links, Expand Your Reach
             </h1>
 

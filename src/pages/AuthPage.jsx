@@ -19,6 +19,7 @@ const AuthPage = () => {
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, loading, navigate]);
+
   return (
     <div className="mt-20 flex flex-col items-center gap-10">
       <h1 className="text-5xl font-extrabold">

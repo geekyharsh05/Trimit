@@ -9,10 +9,10 @@ const AppLayout = () => {
     <div>
       <main className="min-h-screen container">
         <Header />
-        <AnimatedCursor />
         <Toaster />
         <Outlet />
       </main>
+      <AnimatedCursor />
       <Footer />
     </div>
   );

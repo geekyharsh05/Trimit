@@ -10,7 +10,7 @@ import LoginFormView from "./LoginFormView";
 
 const LoginForm = () => {
   let [searchParams] = useSearchParams();
-  const longLink = searchParams.get("createNew");
+  const longLink = searchParams.get("#");
 
   const navigate = useNavigate();
 
