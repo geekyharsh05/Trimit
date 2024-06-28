@@ -30,7 +30,7 @@ const HeroSection = ({ handleShorten, longUrl, setLongUrl }) => {
             >
               <Input
                 type="url"
-                placeholder="Enter your URL"
+                placeholder="Enter Your URL"
                 value={longUrl}
                 onChange={(e) => setLongUrl(e.target.value)}
                 className="flex-1 py-3 px-4 md:py-2 md:px-3 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400"
