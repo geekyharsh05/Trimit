@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import DeviceStats from "@/components/DeviceStats";
-import Location from "@/components/LocationStats";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UrlState } from "@/contexts/UrlContext";
@@ -11,70 +9,91 @@ import { PUBLIC_BASE_URL } from "@/utils/envConfigs";
 import { Copy, Download, LinkIcon, Trash } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { BarLoader, BeatLoader } from "react-spinners";
+import { BarLoader, BeatLoader, ClipLoader, PuffLoader } from "react-spinners";
 import { toast } from "sonner";
+import { useState, useCallback } from "react";
+import { Suspense, lazy } from "react";
+const DeviceStats = lazy(() => import("@/components/DeviceStats"));
+const Location = lazy(() => import("@/components/LocationStats"));
 
 const LinkPage = () => {
-  const downloadImage = () => {
-    const imageUrl = url?.qr;
-    const fileName = url?.title;
-
-    // Create an anchor element
-    const anchor = document.createElement("a");
-    anchor.href = imageUrl;
-    anchor.download = fileName;
-
-    // Append the anchor to the body
-    document.body.appendChild(anchor);
-
-    // Remove the anchor from the document
-    document.body.removeChild(anchor);
-
-    // Open the downloaded image in a new tab
-    window.open(imageUrl, "_blank");
-
-    toast.success("Image downloaded successfully");
-  };
-
+  const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
   const { user } = UrlState();
   const { id } = useParams();
+
   const {
-    loading,
+    loading: loadingUrl,
     data: url,
-    fn,
-    error,
+    fn: fetchUrl,
+    error: urlError,
   } = useFetch(getUrl, { id, user_id: user?.id });
 
   const {
     loading: loadingStats,
     data: stats,
-    fn: fnStats,
+    fn: fetchStats,
   } = useFetch(getClicksForUrl, id);
 
-  const { loading: loadingDelete, fn: fnDelete } = useFetch(deleteUrl, id);
+  const { loading: loadingDelete, fn: deleteUrlFn } = useFetch(deleteUrl, id);
 
   useEffect(() => {
-    fn();
+    fetchUrl();
   }, []);
 
   useEffect(() => {
-    if (!error && loading === false) fnStats();
-  }, [loading, error]);
+    if (!urlError && !loadingUrl) {
+      fetchStats();
+    }
+  }, [loadingUrl, urlError]);
 
-  if (error) {
-    navigate("/dashboard");
-  }
+  useEffect(() => {
+    if (urlError) {
+      navigate("/dashboard");
+    }
+  }, [urlError]);
 
-  let link = "";
-  if (url) {
-    link = url?.custom_url ? url?.custom_url : url.short_url;
-  }
+  const handleDownloadImage = () => {
+    const imageUrl = url?.qr;
+    const fileName = url?.title;
+
+    const anchor = document.createElement("a");
+    anchor.href = imageUrl;
+    anchor.download = fileName;
+
+    document.body.appendChild(anchor);
+    document.body.removeChild(anchor);
+
+    window.open(imageUrl, "_blank");
+
+    toast.success("Image downloaded successfully");
+  };
+
+  const handleImageLoad = useCallback(() => {
+    setImageLoaded(true);
+  }, []);
+
+  const handleCopyUrl = () => {
+    const link = url?.custom_url ? url.custom_url : url?.short_url;
+    navigator.clipboard.writeText(`${PUBLIC_BASE_URL}/${link}`);
+    toast.success("URL copied to clipboard");
+  };
+
+  const handleDeleteUrl = () => {
+    deleteUrlFn().then(() => {
+      toast.success("URL deleted successfully");
+      navigate("/dashboard");
+    });
+  };
+
+  const formattedDate = url ? new Date(url.created_at).toLocaleString() : "";
+
+  const link = url ? (url.custom_url ? url.custom_url : url.short_url) : "";
 
   return (
     <>
-      {(loading || loadingStats) && (
-        <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />
+      {(loadingUrl || loadingStats) && (
+        <BarLoader className="mb-4" width="100%" color="#36d7b7" />
       )}
       <div className="flex flex-col gap-8 sm:flex-row justify-between">
         <div className="flex flex-col items-start gap-8 rounded-lg sm:w-2/5">
@@ -97,30 +116,19 @@ const LinkPage = () => {
             {url?.original_url}
           </a>
           <span className="flex items-end font-extralight text-sm">
-            {new Date(url?.created_at).toLocaleString()}
+            {formattedDate}
           </span>
           <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              onClick={() => {
-                navigator.clipboard.writeText(`${PUBLIC_BASE_URL}/${link}`);
-                toast.success("URL copied to clipboard");
-              }}
-            >
+            <Button variant="ghost" onClick={handleCopyUrl}>
               <Copy />
             </Button>
-            <Button variant="ghost" onClick={downloadImage}>
+            <Button variant="ghost" onClick={handleDownloadImage}>
               <Download />
             </Button>
             <Button
               variant="ghost"
-              onClick={() =>
-                fnDelete().then(() => {
-                  toast.success("URL deleted successfully");
-                  navigate("/dashboard");
-                })
-              }
-              disable={loadingDelete}
+              onClick={handleDeleteUrl}
+              disabled={loadingDelete}
             >
               {loadingDelete ? (
                 <BeatLoader size={5} color="white" />
@@ -129,39 +137,53 @@ const LinkPage = () => {
               )}
             </Button>
           </div>
-          <img
-            src={url?.qr}
-            className="w-full self-center sm:self-start ring ring-blue-500 p-1 object-contain"
-            alt="qr code"
-          />
+          <div className="relative w-full self-center sm:self-start">
+            {!imageLoaded && (
+              <div className="flex justify-center items-center w-full h-64 ring ring-blue-500 p-1">
+                <ClipLoader color="#36d7b7" />
+              </div>
+            )}
+            <img
+              src={url?.qr}
+              className={`w-full ring ring-blue-500 p-1 object-contain transition-opacity duration-500 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              alt="QR code"
+              onLoad={handleImageLoad}
+              onError={() => setImageLoaded(true)} // In case the image fails to load
+            />
+          </div>
         </div>
 
         <Card className="sm:w-3/5">
           <CardHeader>
             <CardTitle className="text-4xl font-extrabold">Stats</CardTitle>
           </CardHeader>
-          {stats && stats.length ? (
+          {loadingStats ? (
+            <CardContent className="flex justify-center items-center h-64">
+              <PuffLoader size={60} color="#36d7b7" />
+            </CardContent>
+          ) : stats && stats.length ? (
             <CardContent className="flex flex-col gap-6">
               <Card>
                 <CardHeader>
                   <CardTitle>Total Clicks</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p>{stats?.length}</p>
+                  <p>{stats.length}</p>
                 </CardContent>
               </Card>
-
               <CardTitle>Location Data</CardTitle>
-              <Location stats={stats} />
+              <Suspense fallback={<PuffLoader size={60} color="#36d7b7" />}>
+                <Location stats={stats} />
+              </Suspense>
               <CardTitle>Device Info</CardTitle>
-              <DeviceStats stats={stats} />
+              <Suspense fallback={<PuffLoader size={60} color="#36d7b7" />}>
+                <DeviceStats stats={stats} />
+              </Suspense>
             </CardContent>
           ) : (
-            <CardContent>
-              {loadingStats === false
-                ? "No Statistics yet"
-                : "Loading Statistics.."}
-            </CardContent>
+            <CardContent>No Statistics yet</CardContent>
           )}
         </Card>
       </div>
