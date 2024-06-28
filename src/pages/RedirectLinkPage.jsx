@@ -29,9 +29,26 @@ const RedirectLink = () => {
   if (loading || loadingStats) {
     return (
       <>
-        <BarLoader width={"100%"} color="#36d7b7" />
-        <br />
-        Redirecting...
+        {/* <div className="flex flex-col items-center justify-center">
+          <BarLoader width={"100%"} color="#36d7b7" />
+          <br />
+          <p className="text-lg text-gray-700 mt-4">
+            Redirecting to your link...
+          </p>
+        </div> */}
+        <div className="flex min-h-[80dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-md text-center">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Redirecting...
+            </h1>
+            <p className="mt-4 text-muted-foreground">
+              You are being redirected to the target URL.
+            </p>
+            <div className="mt-6 flex justify-center">
+              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+            </div>
+          </div>
+        </div>
       </>
     );
   }
