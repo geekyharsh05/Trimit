@@ -50,7 +50,11 @@ const Header = () => {
     <>
       <nav className="py-4 flex justify-between items-center text-white ">
         <Link to="/">
-          <img src="../assets/logo.svg" className="h-16" alt="Trimit Logo" />
+          <img
+            src="../assets/logo.svg"
+            className="h-16 sm:h-8 md:h-12 lg:h-16 xl:h-18"
+            alt="Trimit Logo"
+          />
         </Link>
         <div className="flex gap-4">
           {!user ? (

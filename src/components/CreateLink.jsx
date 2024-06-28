@@ -24,11 +24,10 @@ import { PUBLIC_BASE_URL } from "@/utils/envConfigs";
 
 function CreateLink() {
   const { user } = UrlState();
-
   const navigate = useNavigate();
   const ref = useRef();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  let [searchParams, setSearchParams] = useSearchParams();
   const longLink = searchParams.get("createNew");
 
   const [errors, setErrors] = useState({});
@@ -56,20 +55,23 @@ function CreateLink() {
 
   const {
     loading,
-    error,
+    error: apiError,
     data,
     fn: fnCreateUrl,
-  } = useFetch(createUrl, { ...formValues, user_id: user.id });
+  } = useFetch(createUrl, {
+    ...formValues,
+    user_id: user.id,
+  });
 
   useEffect(() => {
-    if (error === null && data) {
+    if (apiError === null && data) {
       toast.success("Link created successfully!");
       navigate(`/link/${data[0].id}`);
     }
-  }, [error, data]);
+  }, [apiError, data]);
 
   const createNewLink = async () => {
-    setErrors([]);
+    setErrors({});
     try {
       await schema.validate(formValues, { abortEarly: false });
 
@@ -77,23 +79,23 @@ function CreateLink() {
       const blob = await new Promise((resolve) => canvas.toBlob(resolve));
 
       await fnCreateUrl(blob);
-    } catch (e) {
+    } catch (err) {
       const newErrors = {};
 
-      e?.inner?.forEach((err) => {
-        newErrors[err.path] = err.message;
+      err.inner.forEach((error) => {
+        newErrors[error.path] = error.message;
       });
 
       setErrors(newErrors);
-      toast.error("Some fields are invalid, Please check!");
+      toast.error("Some fields are invalid. Please check!");
     }
   };
 
   return (
     <Dialog
       defaultOpen={longLink}
-      onOpenChange={(res) => {
-        if (!res) setSearchParams({});
+      onOpenChange={(isOpen) => {
+        if (!isOpen) setSearchParams({});
       }}
     >
       <DialogTrigger asChild>
@@ -105,9 +107,11 @@ function CreateLink() {
         <DialogHeader>
           <DialogTitle className="font-bold text-2xl">Create New</DialogTitle>
         </DialogHeader>
-        {formValues?.longUrl && (
-          <QRCode ref={ref} size={250} value={formValues?.longUrl} />
-        )}
+        <div className="flex justify-center">
+          {formValues.longUrl && (
+            <QRCode ref={ref} size={250} value={formValues.longUrl} />
+          )}
+        </div>
 
         <Input
           id="title"
@@ -116,6 +120,7 @@ function CreateLink() {
           onChange={handleChange}
         />
         {errors.title && <Error message={errors.title} />}
+
         <Input
           id="longUrl"
           placeholder="Enter Your Long URL"
@@ -123,6 +128,7 @@ function CreateLink() {
           onChange={handleChange}
         />
         {errors.longUrl && <Error message={errors.longUrl} />}
+
         <div className="flex items-center gap-2">
           <Card className="p-2 w-full">{PUBLIC_BASE_URL}</Card> /
           <Input
@@ -132,7 +138,8 @@ function CreateLink() {
             onChange={handleChange}
           />
         </div>
-        {error && <Error message={errors.message} />}
+        {apiError && <Error message={apiError.message} />}
+
         <DialogFooter className="sm:justify-start">
           <Button
             type="button"
