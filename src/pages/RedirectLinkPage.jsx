@@ -25,12 +25,6 @@ const RedirectLink = () => {
     }
   }, [loading]);
 
-  useEffect(() => {
-    if (!loadingStats && data) {
-      window.location.href = data.original_url;
-    }
-  }, [loadingStats, data]);
-
   if (loading || loadingStats) {
     return (
       <>
