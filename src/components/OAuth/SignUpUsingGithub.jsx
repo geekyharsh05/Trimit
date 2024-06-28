@@ -14,7 +14,7 @@ const SignUpWithGithubButton = () => {
     <button
       onClick={handleSignUp}
       type="button"
-      className="flex items-center justify-center gap-x-2 rounded-md border border-slate-600 bg-slate-700 py-3 px-4 text-slate-300 transition hover:text-purple-400 "
+      className="flex items-center justify-center gap-x-2 rounded-md border border-slate-600 bg-slate-700 py-3 px-4 text-slate-300 transition hover:text-purple-400 sm:w-auto"
     >
       <Github />
       Sign in with Github
