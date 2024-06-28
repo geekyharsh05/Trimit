@@ -14,14 +14,13 @@ import CreateLink from "@/components/CreateLink";
 import useDebounce from "@/hooks/useDebounce";
 
 const Dashboard = () => {
+  const { user } = UrlState();
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebounce(searchQuery, 500); // 500ms debounce delay
 
-  const { user } = UrlState();
-
   const {
-    loading,
-    error,
+    loading: loadingUrls,
+    error: errorUrls,
     data: urls,
     fn: fnUrls,
   } = useFetch(getUrls, user?.id);
@@ -31,25 +30,27 @@ const Dashboard = () => {
     data: clicks,
     fn: fnClicks,
   } = useFetch(
-    getClicksForUrls,
-    urls?.map((url) => url.id)
+    () => getClicksForUrls(urls?.map((url) => url.id)),
+    [urls?.map((url) => url.id).join(",")]
   );
 
   useEffect(() => {
     fnUrls();
   }, []);
 
+  useEffect(() => {
+    if (urls?.length) {
+      fnClicks();
+    }
+  }, [urls?.length]);
+
   const filteredUrls = urls?.filter((url) =>
     url.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
   );
 
-  useEffect(() => {
-    if (urls?.length) fnClicks();
-  }, [urls?.length]);
-
   return (
     <div className="flex flex-col gap-8">
-      {loading || loadingClicks ? (
+      {loadingUrls || loadingClicks ? (
         <BarLoader width={"100%"} color="#36d7b7" />
       ) : null}
       <div className="grid grid-cols-2 gap-4">
@@ -70,26 +71,23 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <h1 className="text-4xl font-extrabold">My Links</h1>
         <CreateLink />
       </div>
-
       <div className="relative">
         <Input
           type="text"
           placeholder="Filter Links..."
           value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-          }}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <Filter className="absolute top-2 right-2 p-1" />
       </div>
-      {error && <Error message={error.message} />}
-      {(filteredUrls || []).map((url, id) => {
-        return <LinkCard key={id} url={url} fetchUrls={fnUrls} />;
-      })}
+      {errorUrls && <Error message={errorUrls.message} />}
+      {filteredUrls?.map((url) => (
+        <LinkCard key={url.id} url={url} fetchUrls={fnUrls} />
+      ))}
     </div>
   );
 };

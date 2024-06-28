@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSearchParams } from "react-router-dom";
 import Login from "@/components/Login";
@@ -17,7 +18,6 @@ const AuthPage = () => {
   useEffect(() => {
     if (isAuthenticated && !loading)
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, loading, navigate]);
 
   return (
