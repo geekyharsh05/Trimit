@@ -4,7 +4,6 @@ import { getLongUrl } from "@/db/apiUrls";
 import useFetch from "@/hooks/useFetch";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { BarLoader } from "react-spinners";
 
 const RedirectLink = () => {
   const { id } = useParams();
@@ -25,6 +24,12 @@ const RedirectLink = () => {
       fnStats();
     }
   }, [loading]);
+
+  useEffect(() => {
+    if (!loadingStats && data) {
+      window.location.href = data.original_url;
+    }
+  }, [loadingStats, data]);
 
   if (loading || loadingStats) {
     return (
