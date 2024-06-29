@@ -109,7 +109,7 @@ function CreateLink() {
         </DialogHeader>
         <div className="flex justify-center">
           {formValues.longUrl && (
-            <QRCode ref={ref} size={250} value={formValues.longUrl} />
+            <QRCode ref={ref} size={200} value={formValues.longUrl} />
           )}
         </div>
 
