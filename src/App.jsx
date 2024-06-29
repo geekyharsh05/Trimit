@@ -7,7 +7,7 @@ const AuthPage = lazy(() => import("./pages/AuthPage"));
 const LinkPage = lazy(() => import("./pages/LinkPage"));
 const RedirectLinkPage = lazy(() => import("./pages/RedirectLinkPage"));
 const RequireAuth = lazy(() => import("./components/RequireAuth"));
-import { Skeleton } from "./components/ui/skeleton";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +47,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <Suspense fallback={<Skeleton className="w-full" />}>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-background">
+          <LoadingSpinner />
+        </div>
+      }
+    >
       <RouterProvider router={router} />
     </Suspense>
   );
