@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/public/assets/logo.svg" alt="Trim-it logo" width="175" height="175">
+  <img src="/public/assets/logo.svg" alt="Trim-it logo" width="300" height="175">
 </div>
 
 ## Description
