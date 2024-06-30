@@ -46,6 +46,21 @@ const RedirectLinkPage = () => {
     );
   }
 
+  if (!data) {
+    return (
+      <div className="flex min-h-[80vh] items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
+        <div className="max-w-lg text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+            URL Not Found
+          </h1>
+          <p className="mt-6 text-lg text-muted-foreground sm:text-xl">
+            The URL you are trying to access does not exist or is invalid.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return null;
 };
 
