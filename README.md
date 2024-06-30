@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-  ![Trim-it Logo](/public/assets/logo.svg)
+  ![Trim-it Logo](/public/assets/logo.png)
 </div>
 
 # Trim-it
