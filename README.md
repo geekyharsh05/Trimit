@@ -1,8 +1,6 @@
 <div style="text-align: center;">
-  ![Trim-it Logo](/public/assets/logo.png)
+ <img src="/public/assets/logo.svg" alt="trimit logo" width="200" height="200"> 
 </div>
-
-# Trim-it
 
 ## Description
 
