@@ -1,9 +1,8 @@
 <div align="center">
   <img src="/public/assets/logo.svg" alt="Trim-it logo" width="300" height="175">
   
-  <p>Trim-it is a URL shortener app that allows users to create shortened URLs for long and complex web addresses. With Trim-it, you can easily share and remember shorter, more manageable links</p>
+  <p>Trim-it is a URL shortener app that allows users to create shortened URLs for long and complex web addresses. With Trim-it, you can easily share and remember shorter, more manageable links.</p>
 </div>
-.
 
 ## Getting Started
 
