@@ -9,10 +9,13 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      server: {
-        host: true,
-        open: true,
-      },
+    },
+    rules: {
+      "react/prop-types": 0,
+    },
+    server: {
+      host: true,
+      open: true,
     },
   },
 });
