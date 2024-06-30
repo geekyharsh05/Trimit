@@ -1,6 +1,7 @@
-<div style="text-align: center;">
- <img src="/public/assets/logo.svg" alt="trimit logo" width="200" height="200"> 
+<div style="display: block; margin-left: auto; margin-right: auto; width: fit-content;">
+  <img src="/public/assets/logo.svg" alt="Trim-it logo" width="200" height="200">
 </div>
+
 
 ## Description
 
