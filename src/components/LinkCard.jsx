@@ -7,6 +7,7 @@ import { deleteUrl } from "@/db/apiUrls";
 import { BeatLoader } from "react-spinners";
 import { toast } from "sonner";
 import { PUBLIC_BASE_URL } from "@/utils/envConfigs";
+import SocialShareButton from "./SocialShare";
 
 const LinkCard = ({ url = [], fetchUrls }) => {
   const downloadImage = () => {
@@ -72,6 +73,7 @@ const LinkCard = ({ url = [], fetchUrls }) => {
         </span>
       </Link>
       <div className="flex gap-2">
+        <SocialShareButton url={url} customUrl={url.custom_url} />
         <Button
           variant="ghost"
           onClick={handleCopy}
