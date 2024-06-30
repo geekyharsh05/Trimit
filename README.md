@@ -1,8 +1,17 @@
-# React + Vite
+<div style="text-align: center;">
+  ![Trim-it Logo](/public/assets/logo.svg)
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Trim-it
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Trim-it is a URL shortener app that allows users to create shortened URLs for long and complex web addresses. With Trim-it, you can easily share and remember shorter, more manageable links.
+
+## Features
+
+- Shorten long URLs with just a few clicks
+- Customizable short URLs for easy recall
+- Track click statistics and analytics for each shortened URL
+- Secure and reliable URL redirection
+- User-friendly interface for effortless navigation
