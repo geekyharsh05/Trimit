@@ -14,7 +14,7 @@ import { Input } from "./ui/input";
 import Error from "./Error";
 import { Card } from "./ui/card";
 import { useRef, useState, useEffect } from "react";
-import * as yup from "yup";
+import { z } from "zod";
 import { QRCode } from "react-qrcode-logo";
 import useFetch from "@/hooks/useFetch";
 import { BeatLoader } from "react-spinners";
@@ -37,13 +37,13 @@ function CreateLink() {
     customUrl: "",
   });
 
-  const schema = yup.object().shape({
-    title: yup.string().required("Title is required"),
-    longUrl: yup
+  const schema = z.object({
+    title: z.string().min(1, "Title is required"),
+    longUrl: z
       .string()
       .url("Must be a valid URL")
-      .required("Long URL is required"),
-    customUrl: yup.string(),
+      .min(1, "Long URL is required"),
+    customUrl: z.string().optional(),
   });
 
   const handleChange = (e) => {
@@ -73,7 +73,7 @@ function CreateLink() {
   const createNewLink = async () => {
     setErrors({});
     try {
-      await schema.validate(formValues, { abortEarly: false });
+      schema.parse(formValues);
 
       const canvas = ref.current.canvasRef.current;
       const blob = await new Promise((resolve) => canvas.toBlob(resolve));
@@ -82,9 +82,11 @@ function CreateLink() {
     } catch (err) {
       const newErrors = {};
 
-      err.inner.forEach((error) => {
-        newErrors[error.path] = error.message;
-      });
+      if (err instanceof z.ZodError) {
+        err.errors.forEach((error) => {
+          newErrors[error.path.join(".")] = error.message;
+        });
+      }
 
       setErrors(newErrors);
       toast.error("Some fields are invalid. Please check!");
