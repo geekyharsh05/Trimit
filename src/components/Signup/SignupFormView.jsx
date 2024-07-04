@@ -11,12 +11,13 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { BeatLoader } from "react-spinners";
 import Error from "../Error";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, TrashIcon } from "lucide-react";
 import { useState } from "react";
 
 const SignupFormView = ({
   formData,
   handleInputChange,
+  handleRemovePicture,
   handleSignup,
   errors,
   loading,
@@ -61,8 +62,8 @@ const SignupFormView = ({
             onChange={handleInputChange}
             className="bg-transparent border rounded-lg py-3 px-4 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400"
           />
+          {errors.email && <Error message={errors.email} />}
         </div>
-        {errors.email && <Error message={errors.email} />}
 
         <div className="relative space-y-1">
           <Input
@@ -109,7 +110,14 @@ const SignupFormView = ({
                 alt="Profile Preview"
                 className="w-16 h-16 rounded-full object-cover mr-2"
               />
-              <span>{formData.profile_pic.name}</span>
+              <span className="mr-2">{formData.profile_pic.name}</span>
+              <button
+                type="button"
+                onClick={handleRemovePicture}
+                className="text-red-500"
+              >
+                <TrashIcon size={22} />
+              </button>
             </div>
           )}
         </div>

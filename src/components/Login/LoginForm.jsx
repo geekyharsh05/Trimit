@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import * as Yup from "yup";
+import { z } from "zod";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import { login } from "@/db/apiAuth";
@@ -49,24 +49,22 @@ const LoginForm = () => {
   const handleLogin = async () => {
     setErrors([]);
     try {
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .email("Invalid email")
-          .required("Email is required"),
-        password: Yup.string()
-          .min(6, "Password must be at least 6 characters")
-          .required("Password is required"),
+      const schema = z.object({
+        email: z.string().email("Invalid email"),
+        password: z
+          .string()
+          .min(6, "Password must be at least of 6 characters"),
       });
 
-      await schema.validate(formData, { abortEarly: false });
+      schema.parse(formData);
       await fnLogin();
     } catch (e) {
       const newErrors = {};
-
-      e?.inner?.forEach((err) => {
-        newErrors[err.path] = err.message;
-      });
-
+      if (e.errors) {
+        e.errors.forEach((err) => {
+          newErrors[err.path] = err.message;
+        });
+      }
       setErrors(newErrors);
       toast.error("Some fields are invalid, Please check!");
     }
