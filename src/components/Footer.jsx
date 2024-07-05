@@ -11,7 +11,7 @@ const Footer = () => {
               window.open("https://github.com/geekyharsh05/Trimit", "_blank")
             }
             type="button"
-            className="flex items-center justify-center gap-x-2 rounded-full border border-slate-600 bg-transparent py-3 px-4 text-slate-300 transition hover:text-indigo-500 sm:w-auto font-extralight"
+            className="flex items-center justify-center gap-x-2 rounded-full border border-slate-600 py-3 px-6 text-slate-100 transition transform hover:scale-105 hover:shadow-lg sm:w-auto font-extralight"
           >
             <Github className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="hidden sm:inline">Contribute Now!</span>
