@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Link } from "lucide-react";
 
 const HeroSection = ({ handleShorten, longUrl, setLongUrl }) => {
   return (
@@ -28,20 +29,23 @@ const HeroSection = ({ handleShorten, longUrl, setLongUrl }) => {
               className="flex flex-col md:flex-row md:items-center md:space-x-4"
               onSubmit={handleShorten}
             >
-              <Input
-                type="url"
-                placeholder="Enter Your URL"
-                value={longUrl}
-                onChange={(e) => setLongUrl(e.target.value)}
-                className="flex-1 py-3 px-4 md:py-2 md:px-3 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400"
-              />
-              <Button
-                type="submit"
-                className="mt-4 md:mt-0 py-3 px-6 bg-sky-400 text-black hover:bg-sky-600 rounded-lg"
-                variant="outline"
-              >
-                Shorten URL
-              </Button>
+              <div className="flex w-full rounded-2xl overflow-hidden border border-gray-300 focus-within:border-sky-400 focus-within:ring-1 focus-within:ring-sky-400">
+                <Input
+                  type="url"
+                  placeholder="Enter Your URL"
+                  value={longUrl}
+                  onChange={(e) => setLongUrl(e.target.value)}
+                  className="flex-1 py-3 px-4 md:py-2 md:px-3 border-none focus:outline-none"
+                />
+                <Button
+                  type="submit"
+                  className="py-3 px-4 bg-sky-400 text-black hover:bg-sky-600 hover:text-black border-none rounded-l-none flex items-center"
+                  variant="outline"
+                >
+                  <Link className="mr-2" size={18} />
+                  Shorten URL
+                </Button>
+              </div>
             </form>
           </div>
         </motion.div>
