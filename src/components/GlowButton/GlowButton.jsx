@@ -50,20 +50,20 @@ const GlowButton = ({ onClick, children }) => {
       <button
         className="relative z-0 inline-flex items-center justify-center w-36 h-10 px-3 bg-gray-800 text-white rounded-lg glow-on-hover"
         style={{
-          position: 'relative',
+          position: "relative",
           zIndex: 0,
-          width: '150px',
-          height: '40px',
-          border: 'none',
-          outline: 'none',
-          color: '#fff',
-          background: '#1a202c',
-          cursor: 'pointer',
-          borderRadius: '8px',
-          display: 'inline-flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '0 12px'
+          width: "150px",
+          height: "40px",
+          border: "none",
+          outline: "none",
+          color: "#fff",
+          background: "#1a202c",
+          cursor: "pointer",
+          borderRadius: "8px",
+          display: "inline-flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "0 12px",
         }}
         onClick={onClick}
       >
