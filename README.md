@@ -4,6 +4,10 @@
   <p>Trim-it is a URL shortener app that allows users to create shortened URLs for long and complex web addresses. With Trim-it, you can easily share and remember shorter, more manageable links.</p>
 </div>
 
+## Demo:
+
+https://github.com/user-attachments/assets/a2bac4c3-5e95-48b6-aca5-da374a7f9dc9
+
 ## Getting Started
 
 - **Sign Up/Log In**: Sign up for an account or log in to start shortening URLs.
