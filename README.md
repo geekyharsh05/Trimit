@@ -72,9 +72,7 @@ git clone git@github.com:geekyharsh05/Trimit.git
 
 cd Trimit
 
-docker build -t trimit .
-
-docker run -p 5173:5173 trimit:latest
+docker compose up -d
 
 
 ```
