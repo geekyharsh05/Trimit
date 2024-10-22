@@ -43,6 +43,13 @@ Trim-it makes it easy to share concise and manageable links while providing powe
 Click Me
 </summary>
 
+### Important: 
+
+Make sure you properly configure your Supabase project to enable authentication using GitHub and Google.
+
+
+## Using Yarn
+
 1. Clone the repository
 2. Install the dependencies
 3. Run the server
@@ -57,4 +64,16 @@ yarn install
 yarn dev
 ```
 
+
+## Using Docker
+
+```bash
+git clone git@github.com:geekyharsh05/Trimit.git
+
+cd Trimit
+
+docker compose up -d
+
+
+```
 </details>
