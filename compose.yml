@@ -1,0 +1,17 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trimit
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  node_modules:
