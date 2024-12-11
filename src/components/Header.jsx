@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,6 +19,7 @@ import GlowButton from "./GlowButton/GlowButton";
 const Header = () => {
   const { loading, fn: fnLogout } = useFetch(logout);
   const navigate = useNavigate();
+  const location = useLocation(); 
 
   const { user, fetchUser } = UrlState();
 
@@ -58,7 +59,9 @@ const Header = () => {
         </Link>
         <div className="flex gap-4">
           {!user ? (
-            <GlowButton onClick={() => navigate("/auth")}> Login </GlowButton>
+              location.pathname === "/" && (
+              <GlowButton onClick={() => navigate("/auth")}> Login </GlowButton>
+            )
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger className="w-10 rounded-full overflow-hidden">
