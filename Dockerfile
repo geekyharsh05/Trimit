@@ -1,14 +1,15 @@
-FROM node:22-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package.json .
+COPY package.json yarn.lock ./
 
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 COPY . .
 
-EXPOSE 5173
+RUN yarn build
 
-CMD [ "yarn", "dev","--host" ]
+EXPOSE 4173
 
+CMD [ "yarn", "run", "preview" ]
