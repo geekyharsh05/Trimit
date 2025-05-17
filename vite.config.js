@@ -19,9 +19,7 @@ export default defineConfig({
     }
   },
   build: {
-    // Output directory that will be copied to Nginx in the Dockerfile
     outDir: 'dist',
-    // Optimize chunks for production
     chunkSizeWarningLimit: 1600,
     rollupOptions: {
       output: {

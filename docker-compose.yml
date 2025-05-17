@@ -1,0 +1,19 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: trimit:latest
+    container_name: trimit-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - trimit-network
+    volumes:
+      - ./src:/app/src
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
+networks:
+  trimit-network:
+    driver: bridge
